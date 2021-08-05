@@ -10,7 +10,7 @@ const byte BUZZER = 6;
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 MFRC522 rfid(10, 9);
-byte Kart[4] = {202,38,92,131};
+byte Kart[4] = {202,38,92,131}; //Change this Card ID with yours.
 boolean Yetki;
 void setup()
 { 
