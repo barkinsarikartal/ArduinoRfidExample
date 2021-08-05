@@ -1,8 +1,10 @@
+//The I2C 2x16 LCD Screen connections should be default. GND -> GND. Vcc -> 5V. SDA -> A4. SCL -> A5.
+
 #include <SPI.h>
 #include <MFRC522.h>
-const byte YESIL_LED = 4;
-const byte KIRMIZI_LED = 2;
-const byte BUZZER = 6;
+const byte YESIL_LED = 4; //Green LED to Digital 4 pin
+const byte KIRMIZI_LED = 2; //Red LED to Digital 2 pin
+const byte BUZZER = 6; //Buzzer to Digital 6 pin
 
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
@@ -48,7 +50,7 @@ void loop()
     if (Yetki == true)
     {
       Serial.println("Yetki Onaylandi...");
-      lcd.print("BarkinSarikartal");
+      lcd.print("BarkinSarikartal"); //Write your name or whatever you want. This is the authorized name.
       lcd.setCursor(0,1);
       lcd.print("Welcome");
       digitalWrite(YESIL_LED, HIGH);
