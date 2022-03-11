@@ -12,7 +12,7 @@ const byte BUZZER = 6; //Buzzer to Digital 6 pin
 LiquidCrystal_I2C lcd(0x27, 16, 2);
 
 MFRC522 rfid(10, 9);
-byte Kart[4] = {202,38,92,131}; //Change this Card ID with yours.
+byte Kart[4] = {189,72,219,43}; //Change this Card ID with yours.
 boolean Yetki;
 void setup()
 { 
@@ -21,9 +21,13 @@ void setup()
   pinMode(YESIL_LED, OUTPUT);
   pinMode(BUZZER, OUTPUT);
   SPI.begin();
-  rfid.PCD_Init(); 
-  lcd.begin();
+  rfid.PCD_Init();
+  lcd.init(); 
+  lcd.backlight();
   lcd.clear();
+  lcd.print("Kartinizi");
+  lcd.setCursor(0,1);
+  lcd.print("Yaklastirin");
 }
 void loop()
 {
@@ -50,9 +54,10 @@ void loop()
     if (Yetki == true)
     {
       Serial.println("Yetki Onaylandi...");
+      lcd.clear();
       lcd.print("BarkinSarikartal"); //Write your name or whatever you want. This is the authorized name.
-      lcd.setCursor(0,1);
-      lcd.print("Welcome");
+      lcd.setCursor(2,1);
+      lcd.print("Hos Geldiniz");
       digitalWrite(YESIL_LED, HIGH);
       delay(1000);
       lcd.clear();
@@ -64,17 +69,27 @@ void loop()
       digitalWrite(BUZZER, HIGH);
       delay(50);
       digitalWrite(BUZZER, LOW);
+      delay(500);
+      lcd.print("Kartinizi");
+      lcd.setCursor(0,1);
+      lcd.print("Yaklastirin");
     }
     else
     {
       Serial.println("Yetki Onaylanmadi...");
-      lcd.print("  INVALID CARD");
+      lcd.clear();
+      lcd.setCursor(2,0);
+      lcd.print("INVALID CARD");
       digitalWrite(KIRMIZI_LED, HIGH);
       digitalWrite(BUZZER, HIGH);
       delay(500);
       lcd.clear();
       digitalWrite(KIRMIZI_LED, LOW);
       digitalWrite(BUZZER, LOW);
+      delay(500);
+      lcd.print("Kartinizi");
+      lcd.setCursor(0,1);
+      lcd.print("Yaklastirin");
     }
     //rfid.PICC_HaltA();
   }
